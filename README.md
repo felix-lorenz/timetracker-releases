@@ -2,11 +2,11 @@
 
 A native macOS time tracker with a weekly calendar and quick capture in the menu bar.
 
-## Distribution status
+## Distribution
 
-The first public release is being prepared. No downloadable version or Homebrew cask is available yet.
+Download the latest version from [GitHub Releases](https://github.com/felix-lorenz/timetracker-releases/releases/latest), or install it through [felix-lorenz/homebrew-tap](https://github.com/felix-lorenz/homebrew-tap).
 
-This repository will provide product documentation, release notes, distribution archives, and support through GitHub Issues. The source repository is private.
+This repository provides product documentation, release notes, distribution archives, and support through GitHub Issues. The source repository is private.
 
 ## Features
 
@@ -21,15 +21,41 @@ The current interface is German. Local tracking does not require a Jira connecti
 
 The neutral CSV is **not a verified Tempo import format**. Tempo Cloud requires the user's own Jira and Tempo credentials and assigns worklogs to that user's account. Live Tempo transfer and access permissions remain acceptance checks; development validation uses mocked HTTP and isolated demo data. Required Tempo work attributes are not supported and block transfer.
 
-## Planned requirements
+## Requirements
 
 - macOS 14 (Sonoma) or later
 - Apple Silicon (arm64)
-- Homebrew only for installation through the Homebrew cask; direct ZIP installation will not require Homebrew
+- Homebrew only for installation through the Homebrew cask; direct ZIP installation does not require Homebrew
 
-The planned distribution uses Developer ID signing and Apple notarization. These checks must pass before a download is published. Runtime checks on macOS 14–26 and another Mac remain separate acceptance checks.
+Distribution builds use Developer ID Application signing, Hardened Runtime, and Apple notarization. Runtime checks on macOS 14–26 and another Mac remain separate acceptance checks.
 
-The Homebrew package will be distributed through [felix-lorenz/homebrew-tap](https://github.com/felix-lorenz/homebrew-tap). Installation instructions will be added with the first verified release.
+## Installation and updates
+
+### Direct download
+
+1. Download the ZIP asset from the [latest release](https://github.com/felix-lorenz/timetracker-releases/releases/latest).
+2. Extract the archive and move `Time Tracker.app` to `/Applications`.
+3. Open Time Tracker from Applications.
+
+To update, quit Time Tracker before replacing the app with the latest download. Quitting preserves an active timer; stop it first if you want tracking to end.
+
+### Homebrew
+
+Install [Homebrew](https://brew.sh), then run:
+
+```sh
+brew tap felix-lorenz/tap
+brew install --cask felix-lorenz/tap/timetracker
+```
+
+To update, quit Time Tracker and run:
+
+```sh
+brew update
+brew upgrade --cask felix-lorenz/tap/timetracker
+```
+
+Quitting does not stop an active timer. Installation and updates preserve local tracking records and the Tempo import journal.
 
 ## Data and credentials
 
