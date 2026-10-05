@@ -10,16 +10,19 @@ This repository provides product documentation, release notes, distribution arch
 
 ## Features
 
-- Track work by topic, project, and one locally maintained Jira issue per time entry.
+- Start tracking immediately, with optional booking text, project, and a locally maintained Jira issue.
 - Start, switch, and stop timers from the main window or menu bar.
-- Review and edit time in a weekly calendar, including entries that cross midnight.
+- Review and edit time in a weekly calendar, including entries that cross midnight, and edit a running entry's details and start time without stopping it.
+- Reuse topic templates while keeping each existing entry's booking text, project, and Jira issue unchanged by template edits.
 - Keep tracking records locally, with atomic saves and a backup of the previous valid snapshot.
 - Export completed records as a neutral CSV.
 - Preview, export, and transfer worklogs through the optional Tempo Cloud connection, with a local journal to prevent duplicate in-app transfers.
 
 The current interface is German. Local tracking does not require a Jira connection, Homebrew, or API tokens. Maintaining an issue locally does not create it in Jira.
 
-The neutral CSV is **not a verified Tempo import format**. Tempo Cloud requires the user's own Jira and Tempo credentials and assigns worklogs to that user's account. Live Tempo transfer and access permissions remain acceptance checks; development validation uses mocked HTTP and isolated demo data. Required Tempo work attributes are not supported and block transfer.
+The neutral CSV is **not a verified Tempo import format**. Tempo Cloud requires the user's own Jira and Tempo credentials and assigns worklogs to that user's account. Every transferred worklog requires exactly one locally maintained Jira issue. Live Tempo transfer and access permissions remain acceptance checks; development validation uses mocked HTTP and isolated demo data.
+
+Required Tempo work attributes can be entered as one shared set of values for an import: static lists, text, numeric input, explicit yes/no, manual Tempo Account keys, and manual dynamic-dropdown option keys. Unsupported required types block transfer. Tempo validates Account and dynamic-dropdown applicability during transmission; acceptance in the intended installation remains a live check.
 
 ## Requirements
 
@@ -60,6 +63,8 @@ Quitting does not stop an active timer. Installation and updates preserve local 
 ## Data and credentials
 
 Tracking records and the Tempo import journal are stored in `~/Library/Application Support/Time Tracker/`. Jira and Tempo tokens are stored in the macOS login Keychain. Back up the tracking file and import journal together; the journal records transfers that must not be repeated.
+
+Version 0.2.0 upgrades older tracking data in memory to store each entry's own booking text and project. Loading alone leaves the file unchanged; the first successful change saves the upgraded format and backs up the original file. Older app versions cannot read the upgraded tracking file.
 
 Replacing the development build with a Developer ID signed build may require reauthorizing or re-entering the saved connection credentials. Installation and upgrades must preserve tracking records and the import journal.
 
