@@ -12,8 +12,11 @@ This repository provides product documentation, release notes, distribution arch
 
 - Start tracking immediately, with optional booking text, project, and a locally maintained Jira issue.
 - Start, switch, and stop timers from the main window or menu bar.
-- Review and edit time in a weekly calendar, including entries that cross midnight, and edit a running entry's details and start time without stopping it.
+- Review and edit time in a weekly calendar with daily totals, including entries that cross midnight, and edit a running entry's details and start time without stopping it.
 - Reuse topic templates while keeping each existing entry's booking text, project, and Jira issue unchanged by template edits.
+- Preselect the latest booking's project and Jira issue for new capture, and restore historical assignments when choosing a topic suggestion.
+- Start a new topic immediately from the menu bar and edit its details while the timer runs; canceling the editor leaves the timer running.
+- Use consistent project-color brightness and saturation, an opaque menu-bar capsule with subtle daily progress, and compact timers; remove recent-topic shortcuts without deleting historical records.
 - Keep tracking records locally, with atomic saves and a backup of the previous valid snapshot.
 - Export completed records as a neutral CSV.
 - Preview, export, and transfer worklogs through the optional Tempo Cloud connection, with a local journal to prevent duplicate in-app transfers.
@@ -22,15 +25,27 @@ The current interface is German. Local tracking does not require a Jira connecti
 
 The neutral CSV is **not a verified Tempo import format**. Tempo Cloud requires the user's own Jira and Tempo credentials and assigns worklogs to that user's account. Every transferred worklog requires exactly one locally maintained Jira issue. Live Tempo transfer and access permissions remain acceptance checks; development validation uses mocked HTTP and isolated demo data.
 
-Required Tempo work attributes can be entered as one shared set of values for an import: static lists, text, numeric input, explicit yes/no, manual Tempo Account keys, and manual dynamic-dropdown option keys. Unsupported required types block transfer. Tempo validates Account and dynamic-dropdown applicability during transmission; acceptance in the intended installation remains a live check.
+Tempo combines completed bookings with the same exact booking text, Jira issue, required attributes, and day in the author's Jira profile time zone. Captured durations are summed before each worklog is rounded to the nearest 15 minutes, with halfway values rounded up and a minimum of 15 minutes. Worklogs transfer their date and duration without the captured start time. Local records remain unchanged.
+
+Required Tempo work attributes appear as immutable per-ticket preview columns. This version automatically reads a required Tempo Account from the Jira issue and resolves its account key through Tempo. This requires Accounts read access in addition to Worklogs Manage access. Missing or unavailable defaults, including other required attribute types, block the affected bookings while valid groups remain importable. Tempo validates Account applicability during transmission; acceptance in the intended installation remains a live check.
+
+## Screenshots
+
+![Weekly calendar](assets/screenshots/weekly-calendar.png)
+
+Time Tracker 0.3.0 — weekly calendar in an isolated demo view.
+
+![Menu bar popover](assets/screenshots/menu-bar-popover.png)
+
+Time Tracker 0.3.0 — menu bar popover in an isolated demo view.
 
 ## Requirements
 
-- macOS 14 (Sonoma) or later
+- macOS 27 (Golden Gate) or later
 - Apple Silicon (arm64)
 - Homebrew only for installation through the Homebrew cask; direct ZIP installation does not require Homebrew
 
-Distribution builds use Developer ID Application signing, Hardened Runtime, and Apple notarization. Runtime checks on macOS 14–26 and another Mac remain separate acceptance checks.
+Distribution builds use Developer ID Application signing, Hardened Runtime, and Apple notarization. Runtime checks on another Mac remain a separate acceptance check.
 
 ## Installation and updates
 
