@@ -13,17 +13,20 @@ This repository provides product documentation, release notes, distribution arch
 - Start tracking immediately, with optional booking text, project, and a locally maintained Jira issue.
 - Start, switch, and stop timers from the main window or menu bar; discard a running timer after confirmation.
 - Review and edit time in a weekly calendar with daily totals, including entries that cross midnight, and edit a running entry's details and start time without stopping it.
-- Reuse topic templates while keeping each existing entry's booking text, project, and Jira issue unchanged by template edits.
-- Preselect the latest booking's project and Jira issue for new capture, and restore historical assignments when choosing a topic suggestion.
-- Start a new topic immediately from the menu bar and edit the running timer in a project-colored card, with flat project/Jira lists, a date-and-time calendar, and a native Liquid Glass popover background.
-- Use a shared project palette with hue-preserving, contrast-adjusted brightness and consistent saturation, plus white menu-bar text and subtle daily progress; remove recent-topic shortcuts without deleting historical records.
+- Reuse topics from the newest 100 time entries by start time, deduplicated by exact booking text, project, and local issue. Editing or deleting a record updates this history immediately; no separate topic templates are maintained.
+- Preselect the latest booking's optional local issue and its project for new capture, and restore the source entry's assignments when choosing a topic suggestion.
+- Start a new topic immediately from the menu bar and edit the running timer in a project-colored card that stays visible above scrollable topic history, with a combined project/issue selector, a date-and-time calendar, and a native Liquid Glass popover background.
+- Use a shared project palette with hue-preserving, contrast-adjusted brightness and consistent saturation, plus white menu-bar text and subtle daily progress.
+- Manage projects, local issues, and the Tempo Cloud connection in Settings. Local issues can use a label without a Jira key; their project determines the color and filter for assigned bookings. Changing an issue's project updates its existing bookings, including the running timer, while retaining entry IDs, booking text, and time boundaries.
+- Search Jira Cloud by exact issue key, title text, or an optional JQL filter, then adopt selected issues locally. Reloading refreshes the Jira key and title while retaining the local label and project; issues from different Jira sites stay separate. Search and local adoption do not create or modify remote Jira tickets.
+- Remove an issue's Jira link while retaining its local label, project, and booking assignments.
 - Keep tracking records locally, with atomic saves and a backup of the previous valid snapshot.
-- Export completed records as a neutral CSV.
-- Preview, export, and transfer worklogs through the optional Tempo Cloud connection, with a local journal to prevent duplicate in-app transfers.
+- Export completed records as a neutral CSV, including the local issue label and an empty Jira key for unlinked issues.
+- Preview, export, and transfer worklogs through the optional Tempo Cloud connection, with a local journal to prevent duplicate in-app transfers. Manage the connection in Settings → Tempo Cloud, also accessible from the import dialog.
 
 The current interface is German. Local tracking does not require a Jira connection, Homebrew, or API tokens. Maintaining an issue locally does not create it in Jira.
 
-The neutral CSV is **not a verified Tempo import format**. Tempo Cloud requires the user's own Jira and Tempo credentials and assigns worklogs to that user's account. Every transferred worklog requires exactly one locally maintained Jira issue. Live Tempo transfer and access permissions remain acceptance checks; development validation uses mocked HTTP and isolated demo data.
+The neutral CSV is **not a verified Tempo import format**. Tempo Cloud requires the user's own Jira and Tempo credentials and assigns worklogs to that user's account. Every transferred worklog requires exactly one locally maintained issue with a valid Jira link. Bookings without an issue or Jira link remain blocked while valid bookings can be imported. Live Tempo transfer and access permissions remain acceptance checks; development validation uses mocked HTTP and isolated demo data.
 
 Tempo combines completed bookings with the same exact booking text, Jira issue, required attributes, and day in the author's Jira profile time zone. Captured durations are summed before each worklog is rounded to the nearest 15 minutes, with halfway values rounded up and a minimum of 15 minutes. Worklogs transfer their date and duration without the captured start time. Local records remain unchanged.
 
@@ -33,11 +36,11 @@ Required Tempo work attributes appear as immutable per-ticket preview columns. T
 
 ![Weekly calendar](assets/screenshots/weekly-calendar.png)
 
-Time Tracker 0.3.0 — weekly calendar in an isolated demo view.
+Time Tracker 0.5.0 — weekly calendar in an isolated demo view.
 
 ![Menu bar popover](assets/screenshots/menu-bar-popover.png)
 
-Time Tracker 0.3.0 — menu bar popover in an isolated demo view.
+Time Tracker 0.5.0 — menu bar popover in an isolated demo view.
 
 ## Requirements
 
@@ -79,9 +82,11 @@ Quitting does not stop an active timer. Installation and updates preserve local 
 
 Tracking records and the Tempo import journal are stored in `~/Library/Application Support/Time Tracker/`. Jira and Tempo tokens are stored in the macOS login Keychain. Back up the tracking file and import journal together; the journal records transfers that must not be repeated.
 
-Version 0.2.0 upgrades older tracking data in memory to store each entry's own booking text and project. Loading alone leaves the file unchanged; the first successful change saves the upgraded format and backs up the original file. Older app versions cannot read the upgraded tracking file.
+Version 0.5.0 upgrades schemas 1–4 in memory to schema 5, which derives topics from entries and stores each local issue's optional Jira link and project. A unique existing project is retained; issues previously used in multiple projects require an explicit choice in Settings before changes can be saved. That choice applies to all bookings assigned to the issue. Entry IDs, booking text, and time boundaries are preserved, and bookings without an issue keep their project. Loading alone leaves the file unchanged; the first successful change or completed conflict resolution saves the upgraded format and backs up the original file. Older app versions cannot read the upgraded tracking file.
 
 Replacing the development build with a Developer ID signed build may require reauthorizing or re-entering the saved connection credentials. Installation and upgrades must preserve tracking records and the import journal.
+
+Jira and Tempo errors are recorded in `Logs/tempo-jira-errors.jsonl` under the data folder, with rotation limited to five files of 1 MiB each. Records contain technical error metadata without tokens, booking or search text, raw URLs, or response bodies. Open the diagnostic folder from Settings → Tempo Cloud; demo logging is disabled.
 
 ## Support
 
