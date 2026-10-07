@@ -11,12 +11,12 @@ This repository provides product documentation, release notes, distribution arch
 ## Features
 
 - Start tracking immediately, with optional booking text, project, and a locally maintained Jira issue.
-- Start, switch, and stop timers from the main window or menu bar.
+- Start, switch, and stop timers from the main window or menu bar; discard a running timer after confirmation.
 - Review and edit time in a weekly calendar with daily totals, including entries that cross midnight, and edit a running entry's details and start time without stopping it.
 - Reuse topic templates while keeping each existing entry's booking text, project, and Jira issue unchanged by template edits.
 - Preselect the latest booking's project and Jira issue for new capture, and restore historical assignments when choosing a topic suggestion.
-- Start a new topic immediately from the menu bar and edit its details while the timer runs; canceling the editor leaves the timer running.
-- Use consistent project-color brightness and saturation, an opaque menu-bar capsule with subtle daily progress, and compact timers; remove recent-topic shortcuts without deleting historical records.
+- Start a new topic immediately from the menu bar and edit the running timer in a project-colored card, with flat project/Jira lists, a date-and-time calendar, and a native Liquid Glass popover background.
+- Use a shared project palette with hue-preserving, contrast-adjusted brightness and consistent saturation, plus white menu-bar text and subtle daily progress; remove recent-topic shortcuts without deleting historical records.
 - Keep tracking records locally, with atomic saves and a backup of the previous valid snapshot.
 - Export completed records as a neutral CSV.
 - Preview, export, and transfer worklogs through the optional Tempo Cloud connection, with a local journal to prevent duplicate in-app transfers.
