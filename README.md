@@ -30,6 +30,10 @@ The neutral CSV is **not a verified Tempo import format**. Tempo Cloud requires 
 
 Tempo combines completed bookings with the same exact booking text, Jira issue, required attributes, and day in the author's Jira profile time zone. Captured durations are summed before each worklog is rounded to the nearest 15 minutes, with halfway values rounded up and a minimum of 15 minutes. Worklogs transfer their date and duration without the captured start time. Local records remain unchanged.
 
+The resizable Tempo preview groups worklogs into collapsible days and lets you choose individual grouped worklogs with checkboxes. Daily totals follow the current selection, showing captured time and the sum of individually rounded worklog durations without rounding the total again. JSON export and import use that same selection; deselected worklogs are omitted, and both actions are disabled when nothing importable is selected.
+
+If Tempo already contains a worklog for your own account on a day, all new worklogs for that day initially start deselected, regardless of issue or project. A day warning explains this, and additional worklogs can be selected manually. The app checks again before the first transfer; newly occupied days are deselected and the entire run stops before sending or reserving any worklogs, leaving the preview open for review.
+
 Required Tempo work attributes appear as immutable per-ticket preview columns. This version automatically reads a required Tempo Account from the Jira issue and resolves its account key through Tempo. This requires Accounts read access in addition to Worklogs Manage access. Missing or unavailable defaults, including other required attribute types, block the affected bookings while valid groups remain importable. Tempo validates Account applicability during transmission; acceptance in the intended installation remains a live check.
 
 ## Screenshots
