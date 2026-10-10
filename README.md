@@ -17,6 +17,7 @@ This repository provides product documentation, release notes, distribution arch
 - Preselect the latest booking's optional local issue and its project for new capture, and restore the source entry's assignments when choosing a topic suggestion.
 - Start a new topic immediately from the menu bar and edit the running timer in a project-colored card that stays visible above scrollable topic history, with a combined project/issue selector, a date-and-time calendar, and a native Liquid Glass popover background.
 - Use a shared project palette with hue-preserving, contrast-adjusted brightness and consistent saturation, plus white menu-bar text and subtle daily progress.
+- Show or hide the menu-bar icon in Settings → General. The preference is saved and defaults to visible. Hiding it closes quick capture and disables its menu command and ⌘⇧T shortcut; active timers continue.
 - Manage projects, local issues, and the Tempo Cloud connection in Settings. Local issues can use a label without a Jira key; their project determines the color and filter for assigned bookings. Changing an issue's project updates its existing bookings, including the running timer, while retaining entry IDs, booking text, and time boundaries.
 - Search Jira Cloud by exact issue key, title text, or an optional JQL filter, then adopt selected issues locally. Reloading refreshes the Jira key and title while retaining the local label and project; issues from different Jira sites stay separate. Search and local adoption do not create or modify remote Jira tickets.
 - Remove an issue's Jira link while retaining its local label, project, and booking assignments.
@@ -28,11 +29,13 @@ The current interface is German. Local tracking does not require a Jira connecti
 
 The neutral CSV is **not a verified Tempo import format**. Tempo Cloud requires the user's own Jira and Tempo credentials and assigns worklogs to that user's account. Every transferred worklog requires exactly one locally maintained issue with a valid Jira link. Bookings without an issue or Jira link remain blocked while valid bookings can be imported. Live Tempo transfer and access permissions remain acceptance checks; development validation uses mocked HTTP and isolated demo data.
 
-Tempo combines completed bookings with the same exact booking text, Jira issue, required attributes, and day in the author's Jira profile time zone. Captured durations are summed before each worklog is rounded to the nearest 15 minutes, with halfway values rounded up and a minimum of 15 minutes. Worklogs transfer their date and duration without the captured start time. Local records remain unchanged.
+Tempo combines completed bookings with the same exact booking text, Jira issue, required attributes, and day in the author's Jira profile time zone. Captured durations are summed before each worklog is rounded to the nearest 15 minutes, with halfway values rounded up and a minimum of 15 minutes. Worklogs transfer their date and duration without the captured start time. Local records remain unchanged. Eligible worklogs can be adjusted in 15-minute steps before transfer, with a 15-minute minimum. Daily and selection totals, details, JSON export, and transfer use the adjusted import duration. Adjustments apply only to the current preview and reset when it is closed, reloaded, or invalidated.
 
 Choose the week and project filter in the main calendar before opening Tempo. The dialog shows the selected calendar week and date range before loading; opening it makes no network requests. Completed bookings overlapping the selected week are included in full and split at midnight in the author's Jira profile time zone. After preparation, the dialog shows the actual Tempo lookup range and explains any dates extending beyond the selected week.
 
-The resizable Tempo preview groups worklogs into collapsible days. Each day has a native checkbox with unchecked, mixed, and checked states: clicking an unchecked or mixed day selects all eligible groups, while clicking a checked day deselects them. Individual selection remains available. Imported and blocked groups stay excluded, and selection is locked during checks or transfer. Day headings remain left-aligned at the same width when expanded or collapsed; collapsing preserves the selection. Daily totals show captured time and the sum of individually rounded worklog durations without rounding the total again. JSON export and import use that same selection; deselected worklogs are omitted, and both actions are disabled when nothing importable is selected.
+The movable, resizable Tempo preview blocks only the calendar window that opened it; Settings and available menu-bar quick capture remain usable. Its width fits the displayed columns and available screen width, without horizontal scrolling. Closing and Escape are disabled during checks or transfer. Worklogs are grouped into collapsible days. Each day has a native checkbox with unchecked, mixed, and checked states: clicking an unchecked or mixed day selects all eligible groups, while clicking a checked day deselects them. Individual selection remains available. Imported and blocked groups stay excluded, and selection is locked during checks or transfer. Day headings remain left-aligned at the same width when expanded or collapsed; collapsing preserves the selection. Daily totals show captured time and the sum of adjusted import durations without rounding the total again. JSON export and import use that same selection; deselected worklogs are omitted, and both actions are disabled when nothing importable is selected.
+
+Before an import, a running timer overlapping the selected local calendar week and matching the project filter prompts you to continue or cancel. It remains excluded and keeps running. Canceling creates no reservation and sends nothing; the app checks again before the first transfer.
 
 Confirmed imports add a small sync symbol to preview rows and calendar cards, including every source booking of grouped worklogs. The symbol is a historical import receipt for at least one day portion, not a current comparison with Tempo. Its tooltip and accessibility label include the worklog ID and Jira site. The marker remains after closing the dialog, restarting the app, or editing a local booking. Pending or rejected outcomes and JSON export alone do not create a success marker. Demo receipts are labeled “Import simuliert”.
 
@@ -44,11 +47,11 @@ Required Tempo work attributes appear as immutable per-ticket preview columns. T
 
 ![Weekly calendar](assets/screenshots/weekly-calendar.png)
 
-Time Tracker 0.5.0 — weekly calendar in an isolated demo view.
+Time Tracker 0.8.0 — weekly calendar in an isolated demo view.
 
 ![Menu bar popover](assets/screenshots/menu-bar-popover.png)
 
-Time Tracker 0.5.0 — menu bar popover in an isolated demo view.
+Time Tracker 0.8.0 — menu bar popover in an isolated demo view.
 
 ## Requirements
 
