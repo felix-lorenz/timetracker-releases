@@ -12,10 +12,11 @@ This repository provides product documentation, release notes, distribution arch
 
 - Start tracking immediately, with optional booking text, project, and a locally maintained Jira issue.
 - Start, switch, and stop timers from the main window or menu bar; discard a running timer after confirmation.
-- Review and edit time in a weekly calendar with daily totals, including entries that cross midnight, and edit a running entry's details and start time without stopping it.
+- Review time in a weekly calendar with daily totals, including entries that cross midnight. Create and edit entries in a separate movable project-colored card that blocks only its calendar window; Settings and menu-bar capture remain usable. Edit a running entry's details and start time without stopping it.
 - Reuse topics from the newest 100 time entries by start time, deduplicated by exact booking text, project, and local issue. Editing or deleting a record updates this history immediately; no separate topic templates are maintained.
 - Preselect the latest booking's optional local issue and its project for new capture, and restore the source entry's assignments when choosing a topic suggestion.
-- Start a new topic immediately from the menu bar and edit the running timer in a project-colored card that stays visible above scrollable topic history, with a combined project/issue selector, a date-and-time calendar, and a native Liquid Glass popover background.
+- Start a new topic immediately in a movable capture card or through menu-bar Plus, with a focused Topic field and the latest optional project and issue. Closing the card keeps its timer running. Menu-bar Plus and unassigned capture keep the popover open for editing above scrollable topic history; unassigned capture starts without a project or issue. The popover retains its combined project/issue selector and native Liquid Glass background.
+- Apply valid day selections and complete time input immediately in separate calendar panels. Existing entries save field edits automatically; backfilled entries remain drafts until explicitly created.
 - Use a shared project palette with hue-preserving, contrast-adjusted brightness and consistent saturation, plus white menu-bar text.
 - Configure the menu-bar display in Settings → General: set a daily work target from 1 minute to 24 hours (8 hours by default), hide the progress fill, or disable topic scrolling. These preferences are saved locally and take effect immediately.
 - Show or hide the menu-bar icon in Settings → General. The preference is saved and defaults to visible. Hiding it closes quick capture and disables its menu command and ⌘⇧T shortcut; active timers continue.
