@@ -1,6 +1,6 @@
 # Time Tracker
 
-A native macOS time tracker with a weekly calendar and quick capture in the menu bar.
+A native macOS time tracker with a weekly calendar, chronological and topic-grouped lists, and quick capture in the menu bar.
 
 ## Distribution
 
@@ -13,6 +13,8 @@ This repository provides product documentation, release notes, distribution arch
 - Start tracking immediately, with optional booking text, project, and a locally maintained Jira issue.
 - Start, switch, and stop timers from the main window or menu bar; discard a running timer after confirmation.
 - Review time in a weekly calendar with daily totals, including entries that cross midnight. Create and edit entries in a separate movable project-colored card that blocks only its calendar window; Settings and menu-bar capture remain usable. Edit a running entry's details and start time without stopping it.
+- Switch between the weekly calendar and list views, sharing week navigation, project filtering, captured totals, exports, and the running timer. The chronological list shows collapsible days and individual intervals; the topic view groups each day by exact booking text, project, and local issue, with independently editable intervals and summed durations.
+- See unrecorded pauses between bookings in the unfiltered chronological list. Overlapping or touching entries do not create false gaps, and pauses do not count toward captured totals. Choose **Zeit erfassen** to create a completed entry with the exact pause boundaries; partial capture leaves the remaining gaps visible, and canceling leaves records and the running timer unchanged.
 - Reuse topics from the newest 100 time entries by start time, deduplicated by exact booking text, project, and local issue. Editing or deleting a record updates this history immediately; no separate topic templates are maintained.
 - Preselect the latest booking's optional local issue and its project for new capture, and restore the source entry's assignments when choosing a topic suggestion.
 - Start a new topic immediately in a movable capture card or through menu-bar Plus, with a focused Topic field and the latest optional project and issue. Closing the card keeps its timer running. Menu-bar Plus and unassigned capture keep the popover open for editing; unassigned capture starts without a project or issue. The popover has a fixed header and a scrollable body containing the timer card and recent topics. It retains its combined project/issue selector and native Liquid Glass background.
